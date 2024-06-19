@@ -1,1 +1,1 @@
-# smart-inventory
+SmartInventory is a Rust-based web application designed for efficient inventory management. It simplifies tracking, adds, updates, and queries inventory items through a user-friendly interface. By leveraging Rust's powerful features, SmartInventory offers reliable, performant, and safe inventory operations. The project includes a web server initialization, route configuration, and handles incoming requests related to inventory tasks, providing a seamless experience for managing inventory assets.
