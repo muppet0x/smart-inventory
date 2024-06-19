@@ -1,0 +1,14 @@
+[package]
+name = "smart_inventory"
+version = "0.1.0"
+authors = ["muppet0x"]
+edition = "2018"
+
+[dependencies]
+actix-web = "4.0.0"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+dotenv = "0.15.0"
+sqlx = { version = "0.5", features = ["runtime-actix-rustls", "postgres", "macros"] }
+log = "0.4"
+env_logger = "0.9"
