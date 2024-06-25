@@ -10,16 +10,13 @@ pub struct Config {
 impl Config {
     pub fn new() -> Result<Self, envy::Error> {
         dotenv::dotenv().ok();
-
         envy::from_env::<Config>()
     }
 }
 
 fn main() -> Result<(), envy::Error> {
     let config = Config::new()?;
-
     println!("Database URL: {}", config.database_url);
     println!("Server Port: {}", config.server_port);
-
     Ok(())
 }
