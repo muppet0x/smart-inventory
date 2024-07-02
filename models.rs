@@ -1,27 +1,62 @@
 use serde::{Deserialize, Serialize};
+use thiserror::Error;
 
-#[derive(Debug, Serialize, Deserialize)]
-pub struct User {
-    pub id: i32,
-    pub username: String,
-    pub email: String,
-    pub password: String,
+#[derive(Debug, Error)]
+pub enum InventoryError {
+    #[error("database connection failed")]
+    DatabaseConnectionError,
+    #[error("failed to insert into database")]
+    DatabaseInsertionError,
+    // Add more specific errors as needed
 }
 
-#[derive(Debug, Serialize, Deserialize)]
-pub struct Item {
-    pub id: i32,
-    pub name: String,
-    pub description: String,
-    pub price: f32,
-    pub stock_quantity: i32,
-    pub supplier_id: i32,
+fn add_item_to_database(item: Item) -> Result<(), InventoryError> {
+    // Placeholder for actual database code
+    let result = true; // Simulating database operation success
+
+    if result {
+        Ok(())
+    } else {
+        Err(InventoryError::DatabaseInsertionError)
+    }
+}
+```
+```rust
+fn validate_item(item: &Item) -> Result<(), &'static str> {
+    if item.name.trim().is_empty() {
+        return Err("Item name cannot be empty");
+    }
+
+    if item.price <= 0.0 {
+        return Err("Item price must be greater than 0");
+    }
+
+    // Add more validations as needed
+
+    Ok(())
+}
+```
+```rust
+#[derive(Debug, Error)]
+pub enum ApiError {
+    #[error("failed to send request")]
+    RequestFailed,
+    #[error("failed to parse response")]
+    ResponseParsingFailed,
+    // More specific errors can be added here
 }
 
-#[derive(Debug, Serialize, Deserialize)]
-pub struct Supplier {
-    pub id: i32,
-    pub name: String,
-    pub contact_email: String,
-    pub phone_number: String,
+fn fetch_supplier_details(supplier_id: i32) -> Result<Supplier, ApiInfoError> {
+    // Placeholder for actual API call code
+    let result: Option<Supplier> = Some(Supplier {
+        id: supplier_id,
+        name: String::from("Test Supplier"),
+        contact_email: String::from("test@example.com"),
+        phone_number: String::from("123-456-7890"),
+    });
+
+    match result {
+        Some(supplier) => Ok(supplier),
+        None => Err(ApiError::ResponseParsingFailed),
+    }
 }
