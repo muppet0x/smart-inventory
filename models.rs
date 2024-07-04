@@ -1,5 +1,8 @@
 use serde::{Deserialize, Serialize};
 use thiserror::Error;
+use std::collections::HashMap;
+use std::sync::Mutex;
+use once_cell::sync::Lazy;
 
 #[derive(Debug, Error)]
 pub enum InventoryError {
@@ -7,12 +10,59 @@ pub enum InventoryError {
     DatabaseConnectionError,
     #[error("failed to insert into database")]
     DatabaseInsertionError,
-    // Add more specific errors as needed
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+struct Item {
+    name: String,
+    price: f64,
+}
+
+#[derive(Debug, Serialize, Deserialize, Clone)]
+struct Supplier {
+    id: i32,
+    name: String,
+    contact_email: String,
+    phone_number: String,
+}
+
+#[derive(Debug, Error)]
+pub enum ApiError {
+    #[error("failed to send request")]
+    RequestFailed,
+    #[error("failed to parse response")]
+    ResponseParsingFailed,
+}
+
+static SUPPLIER_CACHE: Lazy<Mutex<HashMap<i32, Supplier>>> = Lazy::new(|| Mutex::new(HashMap::new()));
+
+fn fetch_supplier_details(supplier_id: i32) -> Result<Supplier, ApiError> {
+    let cache = SUPPLIER_CACHE.lock().unwrap();
+    if let Some(supplier) = cache.get(&supplier_id) {
+        println!("Cache Hit for supplier_id: {}", supplier_id);
+        return Ok(supplier.clone());
+    }
+    drop(cache);
+
+    let api_result: Option<Supplier> = Some(Supplier {
+        id: supplier_id,
+        name: String::from("Test Supplier"),
+        contact_email: String::from("test@example.com"),
+        phone_number: String::from("123-456-7890"),
+    });
+    
+    match api_result {
+        Some(supplier) => {
+            let mut cache = SUPPLIER_CACHE.lock().unwrap();
+            cache.insert(supplier_id, supplier.clone());
+            Ok(supplier)
+        },
+        None => Err(ApiError::ResponseParsingFailed),
+    }
 }
 
 fn add_item_to_database(item: Item) -> Result<(), InventoryError> {
-    // Placeholder for actual database code
-    let result = true; // Simulating database operation success
+    let result = true;
 
     if result {
         Ok(())
@@ -20,8 +70,7 @@ fn add_item_to_database(item: Item) -> Result<(), InventoryError> {
         Err(InventoryError::DatabaseInsertionError)
     }
 }
-```
-```rust
+
 fn validate_item(item: &Item) -> Result<(), &'static str> {
     if item.name.trim().is_empty() {
         return Err("Item name cannot be empty");
@@ -31,32 +80,5 @@ fn validate_item(item: &Item) -> Result<(), &'static str> {
         return Err("Item price must be greater than 0");
     }
 
-    // Add more validations as needed
-
     Ok(())
-}
-```
-```rust
-#[derive(Debug, Error)]
-pub enum ApiError {
-    #[error("failed to send request")]
-    RequestFailed,
-    #[error("failed to parse response")]
-    ResponseParsingFailed,
-    // More specific errors can be added here
-}
-
-fn fetch_supplier_details(supplier_id: i32) -> Result<Supplier, ApiInfoError> {
-    // Placeholder for actual API call code
-    let result: Option<Supplier> = Some(Supplier {
-        id: supplier_id,
-        name: String::from("Test Supplier"),
-        contact_email: String::from("test@example.com"),
-        phone_number: String::from("123-456-7890"),
-    });
-
-    match result {
-        Some(supplier) => Ok(supplier),
-        None => Err(ApiError::ResponseParsingFailed),
-    }
 }
