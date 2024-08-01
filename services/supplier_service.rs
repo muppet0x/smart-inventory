@@ -23,29 +23,20 @@ impl SupplierService {
         if self.suppliers.contains_key(&id) {
             false
         } else {
-            let supplier = Supplier {
-                id: id.clone(),
-                name,
-                contact_details,
-            };
-            self.suppliers.insert(id, supplier);
+            self.suppliers.insert(id.clone(), Supplier { id, name, contact_details });
             true
         }
     }
 
     fn update_supplier(&mut self, id: &str, name: Option<String>, contact_details: Option<String>) -> bool {
-        match self.suppliers.get_mut(id) {
-            Some(supplier) => {
-                if let Some(name) = name {
-                    supplier.name = name;
-                }
-                if let Some(contact_details) = contact_details {
-                    supplier.contact_details = contact_details;
-                }
-                true
+        self.suppliers.get_mut(id).map(|supplier| {
+            if let Some(name) = name {
+                supplier.name = name;
             }
-            None => false,
-        }
+            if let Some(contact_details) = contact_details {
+                supplier.contact_details = contact_details;
+            }
+        }).is_some()
     }
 
     fn delete_supplier(&mut self, id: &str) -> bool {
