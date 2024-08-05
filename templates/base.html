@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ pageTitle }}</title>
+    <!-- Example of using environment variables for assets -->
+    <link rel="stylesheet" href="{{ ASSET_BASE_URL }}/css/style.css">
+</head>
+<body>
+
+<!-- Header Section -->
+<header>
+    <nav>
+        <ul>
+            <li><a href="{{ BASE_URL }}">Home</a></li>
+            <li><a href="{{ BASE_URL }}/inventory">Inventory</a></li>
+            <li><a href="{{ BASE_URL }}/about">About Us</a></li>
+            <!-- Use environment variables for conditional rendering or paths -->
+        </ul>
+    </nav>
+</header>
+
+<!-- Main Content (Dynamic) -->
+<main>
+    {{ content }}
+</main>
+
+<!-- Footer Section -->
+<footer>
+    <p>&copy; 2023 SmartInventory</p>
+</footer>
+
+<!-- Scripts -->
+<!-- Example of using environment variable for versioning or cache busting -->
+<script src="{{ ASSET_BASE_URL }}/js/app.js?v={{ APP_VERSION }}"></script>
+</body>
+</html>
