@@ -4,35 +4,62 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ pageTitle }}</title>
-    <!-- Example of using environment variables for assets -->
     <link rel="stylesheet" href="{{ ASSET_BASE_URL }}/css/style.css">
+    <style>
+        /* Light theme style (default) */
+        body {
+            --text-color: #000;
+            --background-color: #FFF;
+            color: var(--text-color);
+            background-color: var(--background-color);
+        }
+
+        /* Dark theme style */
+        body.dark-mode {
+            --text-color: #FFF;
+            --background-color: #333;
+            color: var(--text-color);
+            background-color: var(--background-color);
+        }
+    </style>
 </head>
 <body>
 
-<!-- Header Section -->
 <header>
     <nav>
         <ul>
             <li><a href="{{ BASE_URL }}">Home</a></li>
             <li><a href="{{ BASE_URL }}/inventory">Inventory</a></li>
             <li><a href="{{ BASE_URL }}/about">About Us</a></li>
-            <!-- Use environment variables for conditional rendering or paths -->
+            <li><button id="darkModeToggle">Toggle Dark Mode</button></li> <!-- Dark Mode Toggle Button -->
         </ul>
     </nav>
 </header>
 
-<!-- Main Content (Dynamic) -->
 <main>
     {{ content }}
 </main>
 
-<!-- Footer Section -->
 <footer>
     <p>&copy; 2023 SmartInventory</p>
 </footer>
 
-<!-- Scripts -->
-<!-- Example of using environment variable for versioning or cache busting -->
+<script>
+    // JavaScript for toggling dark mode
+    const toggleButton = document.getElementById('darkModeToggle');
+
+    toggleButton.addEventListener('click', function() {
+        document.body.classList.toggle('dark-mode'); // Toggle the dark-mode class on body
+        
+        // Update button text based on whether dark mode is active
+        if(document.body.classList.contains('dark-mode')) {
+            toggleButton.textContent = 'Toggle Light Mode';
+        } else {
+            toggleButton.textContent = 'Toggle Dark Mode';
+        }
+    });
+</script>
+
 <script src="{{ ASSET_BASE_URL }}/js/app.js?v={{ APP_VERSION }}"></script>
 </body>
 </html>
