@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartInventory Home</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        header, footer {
+            text-align: center;
+            padding: 1em;
+            background-color: #333;
+            color: #fff;
+        }
+        main {
+            margin-top: 20px;
+        }
+        .inventory, .suppliers {
+            background-color: #fff;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Welcome to SmartInventory</h1>
+    </header>
+    <main>
+        <section class="inventory">
+            <h2>Inventory Overview</h2>
+            <p>Manage your items efficiently and easily. Update, delete, or add new items as needed.</p>
+            <a href="/items/manage">Manage Items</a>
+        </section>
+        
+        <section class="suppliers">
+            <h2>Suppliers</h2>
+            <p>Keep track of your suppliers. Add new suppliers, update their details, or remove them from your list.</p>
+            <a href="/suppliers/manage">Manage Suppliers</a>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 SmartInventory. All rights reserved.</p>
+    </footer>
+    
+    <script>
+        const API_BASE_URL = `${process.env.API_BASE_URL || 'http://example.com/api'}`;
+        console.log('API Base URL:', API_BASE_URL);
+    </script>
+</body>
+</html>
