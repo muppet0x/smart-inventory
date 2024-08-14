@@ -25,6 +25,19 @@
             padding: 20px;
             margin-bottom: 20px;
         }
+        a.button {
+            display: inline-block;
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            margin-top: 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        a.button:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 <body>
@@ -35,13 +48,17 @@
         <section class="inventory">
             <h2>Inventory Overview</h2>
             <p>Manage your items efficiently and easily. Update, delete, or add new items as needed.</p>
-            <a href="/items/manage">Manage Items</a>
+            <a href="/items/manage" class="button">Manage Items</a>
+            <!-- Added "Add New Item" button -->
+            <a href="/items/add" class="button">Add New Item</a>
         </section>
         
         <section class="suppliers">
             <h2>Suppliers</h2>
             <p>Keep track of your suppliers. Add new suppliers, update their details, or remove them from your list.</p>
-            <a href="/suppliers/manage">Manage Suppliers</a>
+            <a href="/suppliers/manage" class="button">Manage Suppliers</a>
+            <!-- Added "Add New Supplier" button -->
+            <a href="/suppliers/add" class="button">Add New Supplier</a>
         </section>
     </main>
     <footer>
