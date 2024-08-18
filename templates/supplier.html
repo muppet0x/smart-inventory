@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Suppliers - SmartInventory</title>
+</head>
+<body>
+    <section id="add-supplier">
+        <h2>Add Supplier</h2>
+        <form method="post" action="${env.ADD_SUPPLIER_ENDPOINT}">
+            <label for="supplierName">Supplier Name:</label>
+            <input type="text" id="supplierName" name="supplierName" required>
+            <label for="supplierEmail">Supplier Email:</label>
+            <input type="email" id="supplierEmail" name="supplierEmail" required>
+            <button type="submit">Add Supplier</button>
+        </form>
+    </section>
+    <section id="update-supplier">
+        <h2>Update Supplier</h2>
+        <form method="post" action="${env.UPDATE_SUPPLIER_ENDPOINT}">
+            <label for="supplierId">Supplier ID:</label>
+            <input type="number" id="supplierId" name="supplierId" required>
+            <label for="newSupplierName">New Supplier Name:</label>
+            <input type="text" id="newSupplierName" name="newSupplierName">
+            <label for="newSupplierEmail">New Supplier Email:</label>
+            <input type="email" id="newSupplierEmail" name="newSupplierEmail">
+            <button type="submit">Update Supplier</button>
+        </form>
+    </section>
+    <section id="current-suppliers">
+        <h2>Current Suppliers</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </section>
+    <script>
+        const env = {
+            ADD_SUPPLIER_ENDPOINT: `{{ process.env.ADD_SUPPLIER_ENDPOINT }}`,
+            UPDATE_SUPPLIER_ENDPOINT: `{{ process.env.UPDATE_SUPPLIER_ENDPOINT }}`
+        };
+    </script>
+</body>
+</html>
