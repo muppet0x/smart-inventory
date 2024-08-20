@@ -14,6 +14,7 @@
             <label for="supplierEmail">Supplier Email:</label>
             <input type="email" id="supplierEmail" name="supplierEmail" required>
             <button type="submit">Add Supplier</button>
+            <button type="button" onclick="resetForm('add-supplier')">Reset Form</button>
         </form>
     </section>
     <section id="update-supplier">
@@ -26,6 +27,7 @@
             <label for="newSupplierEmail">New Supplier Email:</label>
             <input type="email" id="newSupplierEmail" name="newSupplierEmail">
             <button type="submit">Update Supplier</button>
+            <button type="button" onclick="resetForm('update-supplier')">Clear Fields</button>
         </form>
     </section>
     <section id="current-suppliers">
@@ -41,12 +43,21 @@
             <tbody>
             </tbody>
         </table>
+        <button type="button" onclick="refreshSuppliers()">Refresh Suppliers List</button>
     </section>
     <script>
         const env = {
             ADD_SUPPLIER_ENDPOINT: `{{ process.env.ADD_SUPPLIER_ENDPOINT }}`,
             UPDATE_SUPPLIER_ENDPOINT: `{{ process.env.UPDATE_SUPPLIER_ENDPOINT }}`
         };
+
+        function resetForm(sectionId) {
+            document.getElementById(sectionId).querySelector('form').reset();
+        }
+
+        function refreshSuppliers() {
+            console.log('Refreshing suppliers list...');
+        }
     </script>
 </body>
 </html>
